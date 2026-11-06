@@ -1,0 +1,193 @@
+a,body,html,img,input,label,p,span{margin:0;padding:0;border:0;font-family:sans-serif,Arial}
+
+body{
+	margin: auto;
+	background-color:#FFF;
+	max-width: 480px;
+	padding:0px 18px 0px 18px;
+}
+
+.ContaIner {
+	margin: auto;
+	font-size: 15px;
+	margin-bottom: 8px;
+}
+
+.LOGO {
+    border: none;
+}
+
+.footer {
+	margin-top: 5px;
+	color: #fff;
+	text-align: center;
+	font-size: 13px;
+	color: #808080;
+}
+
+.footers a {
+	text-decoration: none;
+	color: #3498db;
+}
+
+.footers a:hover {
+	color: #EE4B2B;
+}
+
+.inscoinholder {
+	text-align: left;
+}
+
+#infomsgMODAL{
+	color: #303030;
+}
+
+#infomsg{
+	color: #808080;
+	font-size:15px;
+	margin-bottom: 22px;
+}
+
+
+#voucherInput{
+  display: block;
+  background-color:#FFA500;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 16px;
+  outline: none;
+  font-weight: bold;
+  text-shadow: 0px 1px 3px #000;
+  width:91%;
+  height:39px;
+  margin:auto;
+  color: #fff;
+  margin-top: 32px;
+  border: 3px solid #FF8C00;
+}
+
+#buttonRed {
+  display: block;
+  width: 93%;
+  height: 40px;
+  font-family: 'Droid Sans Mono', sans-serif;
+  font-size: 16px;
+  color: #fff;
+  background-color: #ff3838;
+  border-radius: 5px;
+  box-shadow: 0px 3px 0px #DC381F;
+  text-align: center;
+  text-decoration: none;
+  text-shadow: 0px 1px 3px #000;
+  font-weight: bold;
+  border: none;
+  margin:auto;
+  margin-top: 18px;
+
+}
+
+#buttonGreen {
+  display: block;
+  width: 93%;
+  height: 40px;
+  font-family: 'Droid Sans Mono', sans-serif;
+  font-size: 16px;
+  color: #fff;
+  background-color: #4AA02C;
+  border-radius: 5px;
+  box-shadow: 0px 3px 0px #228B22;
+  text-align: center;
+  text-decoration: none;
+  text-shadow: 0px 1px 3px #000;
+  margin:auto;
+  margin-top: 18px;
+  font-weight: bold;
+  border: none;
+  margin-bottom: 33px;
+ 
+}
+
+#donebtn {
+border-radius: 2px;
+  float: right;
+  height:32px;
+  background-color:#3498db;
+  color: white;
+  margin-top: 5px;
+  border: none;
+}
+
+table{font-size:16px;margin:auto;border-collapse:collapse;width:98%;margin-bottom:20px}
+table td{color:	#000000;border-bottom:1px solid #000000;padding:7px 4px 7px 0}
+
+
+.prettyline{height:5px;border-top:0;background:#c4e17f;border-radius:5px;background-image:-webkit-linear-gradient(left,#c4e17f,#c4e17f 12.5%,#f7fdca 12.5%,#f7fdca 25%,#fecf71 25%,#fecf71 37.5%,#f0776c 37.5%,#f0776c 50%,#db9dbe 50%,#db9dbe 62.5%,#c49cde 62.5%,#c49cde 75%,#669ae1 75%,#669ae1 87.5%,#62c2e4 87.5%,#62c2e4);}
+
+.spinner { 
+    position: fixed; 
+    z-index: 9999; 
+    opacity: 80%; display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    height: 100%; 
+    background: white; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+} 
+
+.spinner > img { 
+    width: 100px; 
+} 
+
+.spinner.hidden {
+     animation: fadeOut 1s; animation-fill-mode: forwards;
+     display: none
+}
+
+.insertCoinImg {
+    width: 300px;
+    height: 200px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.modal-open{overflow:hidden}
+.modal{position:fixed;top:0;left:0;z-index:1050;display:none;width:100%;height:100%;overflow:hidden;outline:0}
+.modal-dialog-centered{display:-ms-flexbox;display:flex;-ms-flex-align:center;align-items:center;min-height:calc(100% - 1rem)}
+.modal-content{position:relative;display:-ms-flexbox;display:flex;-ms-flex-direction:column;flex-direction:column;width:100%;pointer-events:auto;background-color:#ccc;background-clip:padding-box;border:none;border-radius:.3rem;outline:0}
+.modal-title{margin-bottom:0;line-height:1.5}
+.modal-body{position:relative;-ms-flex:1 1 auto;flex:1 1 auto;padding:1rem}
+.modal-dialog{max-width:420px;margin:1.75rem auto}
+
+.progress-bar-animated {
+	-webkit-animation:progress-bar-stripes 1s linear infinite;
+	animation:progress-bar-stripes 1s linear infinite
+ }
+		
+.progress {
+	display:-ms-flexbox;
+	display:flex;
+	height:1rem;
+	overflow:hidden;
+	line-height:0;
+	font-size:.75rem;
+	background-color:#FFF;
+	border-radius:.25rem
+}
+
+.progress-bar {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-pack: center;
+    justify-content: center;
+    overflow: hidden;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    background-color: #3498db;
+    transition: width .6s ease;
+}

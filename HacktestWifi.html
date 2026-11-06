@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<!-- IAMNOTLOGINSTRINGPLEASEDONTREMOVE -->
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content= "width=device-width, user-scalable=no">
+	<meta http-equiv="pragma" content="no-cache" />
+	<title>Internet hotspot - Log in</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body onbeforeunload="GRH()">  
+
+    
+    <form name="sendin" action="http://10.0.0.1/login" method="post" style="display:none">
+        <input type="hidden" name="username" />
+        <input type="hidden" name="password" />
+        <input type="hidden" name="dst" value="" />
+        <input type="hidden" name="popup" value="true" />
+    </form>
+    <script src="/md5.js"></script>
+    <script>
+	var vendorIpAddress = ""; 
+	var mac = "2E:40:98:97:01:BC";
+	var uIp = "10.0.0.25";	
+       function doLogin() {	   
+        $("#loaderDiv").attr("class","spinner");
+		setTimeout(function (){		   
+		    document.sendin.username.value = document.login.username.value;
+            document.sendin.password.value = hexMD5('\027' + document.login.password.value + '\143\075\330\353\336\132\240\112\061\316\055\037\225\102\265\044');
+            document.sendin.submit();
+            return false;
+		 }, 500);
+        }
+    </script>
+    
+	
+ <div class="ContaIner">
+  <div class="LOGO"><center><img width="98%" height="98%" src="img/MainPic.webp"/></center></div>
+		<div id="infomsg"><center><h1>Disconnected</h1></center></div>
+		  <hr>			  
+            <div id="loginform"> 
+			  <form name="login" action="http://10.0.0.1/login" method="post">				
+                <input name="username" placeholder="" type="text" id="voucherInput" onkeyup="nameBtn();"/>
+			    <input name="password" placeholder="" type="hidden" />
+			  </form>             			                      
+			</div>
+		  <button id="buttonRed" onclick="doLogin(); return false">CONNECT</button>
+		<button id="buttonGreen" onClick="insertBtnAction(); return false">INSERT COIN</button>
+      <hr class="prettyline">
+	  
+<!----------- modal insert coin -------------------->
+
+      <div class="modal fade" id="insertCoinModal" style="z-index: 1500" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="insertCoinModalTitle" aria-hidden="true">
+		    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+			  <div class="modal-content">	
+                 <h1 class="modal-title" id="infomsgMODAL" align="center">Please Insert Coins</h1>						
+			     <div class="modal-body">
+				      <div class="progress" style="margin-bottom: 20px">
+				      <div id="progressDiv" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%; height: 30px"></div>
+				      </div>					  
+				      <center>
+					    <div class="inscoinholder">
+						  <span style="font-size: 18px;">
+							 <hr style="height:1px;border-width:0;color:gray;background-color:gray">								
+							 <span style="color: #303030" >Coin:</span>
+							 <span id="totalCoin" style="padding-left: 65px; color: #303030">0</span>								
+							 <hr style="height:1px;border-width:0;color:gray;background-color:gray">
+                             <span style="color: #303030">Time:</span>
+						     <span id="totalTime" style="padding-left: 61px; color: #303030"></span>
+							 <hr style="height:1px;border-width:0;color:gray;background-color:gray">
+						 </span>				 
+					    </div>
+				      </center>
+		         <button type="button" id="donebtn" onclick="autoAction();" data-dismiss="modal">Done Paying</button>	
+			   </div>
+		    </div>							  
+	      </div>
+       </div>
+			
+ <div class="footer">
+	<span class="footers">
+		Powered by: <a href="login.html"> JuanFi System</a> SKYLINKFIBER
+	</span>				
+  </div>
+				
+<script src="jquery.min.js"></script>	
+<script src="toast.min.js"></script> 
+<script src="bootstrap.min.js"></script> 
+<script src="GawangRH-Config.js"></script> 
+
+ 
+<script>
+var totalCoinReceived = 0;
+var insertcoinbg = new Audio('img/insertcoinbg.mp3');
+insertcoinbg.loop = true;
+var coinCount = new Audio('img/coin-received.mp3');
+var macNoColon = replaceAll(mac, ":");
+var voucher = macNoColon;
+var insertingCoin = false;
+var timer = null;
+
+$("#voucherInput").val(macNoColon);
+
+function replaceAll(str, rep){
+	var aa = str;
+	while(aa.indexOf(rep) > 0){
+		aa = aa.replace(rep, "");
+	}
+	return aa;
+}
+
+$(document).ready(function(){  	
+ if(disableVoucherInput){
+	$("#voucherInput").attr("disabled", "disabled");
+  }  
+});
+
+function nameBtn(){	
+ var vc = $("#voucherInput").val(); 
+ if(vc != macNoColon){
+   $("#buttonRed").html("ADD VOUCHER");
+ } else{
+   if(vc == macNoColon){
+       $("#buttonRed").html("CONNECT"); 
+      }
+    }
+}	
+
+document.addEventListener('visibilitychange', function (event) {
+    if (document.hidden) {
+        if(insertingCoin == true){
+		autoAction();
+		}
+    } 
+});
+
+function GRH() {
+  if(insertingCoin == true){
+		autoAction();
+		}
+}
+
+function insertBtnAction(){
+	totalCoinReceived = 0;	
+	$('#totalCoin').html("0");
+	$('#totalTime').html(secondsToDhms(parseInt(0)));
+		$.ajax({
+		  type: "GET",
+		  url: "/status",
+           success: function(data, textStatus, request){
+              if ( data.indexOf("IAMNOTLOGINSTRINGPLEASEDONTREMOVE") < 0 ){
+				  location.reload();
+			  }else {
+				  callTopupAPI(0);
+			  }
+           }
+		});
+	return false;
+}
+
+function callTopupAPI(retryCount){
+	var ipAddCriteria = "";
+	if( typeof uIp !== 'undefined' ){
+		ipAddCriteria = "&ipAddress="+uIp;
+	}	
+	$.ajax({
+	  type: "POST",
+	  url: "http://"+vendorIpAddress+"/topUp",
+	  data: "voucher="+voucher+"&mac="+mac+ipAddCriteria,
+	  success: function(data){
+		if(data.status == "true"){
+			voucher = data.voucher;
+			$('#insertCoinModal').modal('show');
+			insertingCoin = true;
+			if(timer == null){
+				timer = setInterval(checkCoin, 1000);
+			}
+			insertcoinbg.play();
+		}else{
+		if(data.errorCode == "coin.slot.banned"){
+			alert("Temporary Banned! due to multiple request for insert coin, please try again later!");
+			}else
+			if(data.errorCode == "coinslot.busy"){
+			alert("Coin slot is busy at the moment..");
+			}
+		clearInterval(timer);
+		 timer = null;
+		}
+	  },error: function (jqXHR, exception) {
+		  setTimeout(function() {
+			if(retryCount < 3){
+				callTopupAPI(retryCount+1);
+			}else{
+			 alert("something went wrong please contact WiFi vendo owner!!");
+			}
+		  }, 1000 );
+	  }
+	});
+}
+
+function checkCoin(){
+  $.ajax({
+	  type: "POST",
+	  url: "http://"+vendorIpAddress+"/checkCoin",
+	  data: "voucher="+voucher,
+	  success: function(data){
+	    if(data.status == "true"){
+			totalCoinReceived = parseInt(data.totalCoin);			
+			$('#totalCoin').html(data.totalCoin);	
+			$('#totalTime').html(secondsToDhms(parseInt(data.timeAdded)));
+			coinCount.play();
+	    }else{
+		 if(data.errorCode == "coin.not.inserted"){
+			var remainTime = parseInt(parseInt(data.remainTime)/1000);
+			var waitTime = parseFloat(data.waitTime);
+			var percent = parseInt(((remainTime*1000) / waitTime) * 100);
+			totalCoinReceived = parseInt(data.totalCoin);
+			
+			if(remainTime == 0){
+			    $('#insertCoinModal').modal('hide');
+			     autoAction();
+			    }else{
+					totalCoinReceived = parseInt(data.totalCoin);
+					$('#totalCoin').html(data.totalCoin);
+				    $('#totalTime').html(secondsToDhms(parseInt(data.timeAdded)));
+					$("#progressDiv").attr('style','width: '+percent+'%');
+				}						 
+		   }
+		 }
+	  }
+  });
+}
+	
+function autoAction(){
+ $("#loaderDiv").attr("class","spinner");	  
+    clearInterval(timer);
+	timer = null;
+	insertingCoin = false;
+	insertcoinbg.pause();
+	insertcoinbg.currentTime = 0.0;	
+	   if(totalCoinReceived > 0 ){   
+		$.ajax({
+	          type: "POST",
+	          url: "http://"+vendorIpAddress+"/useVoucher",
+	          data: "voucher="+voucher,
+	          success: function(data){
+			      totalCoinReceived = 0; 					  
+                  location.reload();
+			  }
+	    });   
+ }else{
+        $.ajax({
+			  type: "POST",
+			  url: "http://"+vendorIpAddress+"/cancelTopUp",
+			  data: "voucher="+voucher+"&mac="+mac,
+			  success: function(data){
+                 location.reload();
+			   }
+	    });
+      }
+}
+	 	 
+function secondsToDhms(seconds) {
+	seconds = Number(seconds);
+	var d = Math.floor(seconds / (3600*24));
+	var h = Math.floor(seconds % (3600*24) / 3600);
+	var m = Math.floor(seconds % 3600 / 60);
+	var s = Math.floor(seconds % 60);
+
+	var dDisplay = d > 0 ? d + (d == 1 ? " Day " : " Days ") : "";
+	var hDisplay = h > 0 ? h + (h == 1 ? "" : "") : "0";
+	var mDisplay = m > 0 ? m + (m == 1 ? "" : "") : "0";
+	var sDisplay = s > 0 ? s + (s == 1 ? "" : "") : "0";
+	return dDisplay + " " + hDisplay + "h : " + mDisplay + "m : " + sDisplay + "s";
+}
+ 
+history.pushState(null, null, null);
+$(window).on("popstate", function (event) {
+  if (!event.originalEvent.state) {
+    history.pushState(null, null, null);
+    return;
+  }
+});
+</script>
+<div id="loaderDiv" class="spinner hidden"><center><img src="img/loading.svg" /></center></div>
+</div>
+</body>
+</html>
